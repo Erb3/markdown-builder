@@ -1,12 +1,12 @@
 [package]
 name = "markdown-composer"
-description = "A library for composing markdown documents."
-version = "0.3.0"
-license = "MIT OR Apache-2.0"
+description = "A library for building markdown documents"
+version = "0.0.0"
+license = "MIT"
 readme = "README.md"
-repository = "https://github.com/SirWindfield/markdown-composer"
-authors = ["Sven Lechner <SirWindfield@users.noreply.github.com>"]
-edition = "2018"
+repository = "https://github.com/Erb3/markdown-builder"
+authors = ["Erb3 <49862976+Erb3@users.noreply.github.com>", "Sven Lechner <SirWindfield@users.noreply.github.com>"]
+edition = "2021"
 
 [features]
 default = ["extension-github"]
