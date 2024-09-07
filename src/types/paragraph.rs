@@ -4,6 +4,7 @@ use std::fmt;
 ///
 /// A paragraph is a continuous text that is visually separated from its
 /// surrounding markdown elements.
+
 #[derive(Clone, Debug)]
 pub struct Paragraph {
     /// The text inside the paragraph.
@@ -20,5 +21,15 @@ impl Paragraph {
 impl fmt::Display for Paragraph {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         writeln!(f, "{}", self.text)
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_display() {
+        assert_eq!(Paragraph::from("Hello world").to_string(), "Hello world\n");
     }
 }

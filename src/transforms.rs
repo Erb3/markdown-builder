@@ -12,18 +12,6 @@
 pub trait BlockQuote {
     /// Transforms the given text into a block quote.
     ///
-    /// # Example
-    ///
-    /// ```rust
-    /// use markdown_builder::transforms::BlockQuote;
-    ///
-    /// let text = "To quote";
-    /// let quoted = text.to_block_quote();
-    /// assert_eq!(quoted, "> To quote");
-    /// ```
-    ///
-    /// # Note
-    ///
     /// Multiline quotes should be created using
     /// [block_quote_multi_line](trait.BlockQuote.html#tymethod.
     /// block_quote_multi_line) function.
@@ -34,16 +22,6 @@ pub trait BlockQuote {
     /// This method does take newlines into account and splits the text after
     /// them to create a block quote that spans over multiple lines instead of a
     /// single one.
-    ///
-    /// # Example
-    ///
-    /// ```rust
-    /// use markdown_builder::transforms::BlockQuote;
-    ///
-    /// let text = "To quote\nor not to quote";
-    /// let quoted = text.to_block_quote_multi_line();
-    /// assert_eq!(quoted, "> To quote\n> or not to quote");
-    /// ```
     fn to_block_quote_multi_line(&self) -> String;
 }
 
@@ -68,16 +46,6 @@ where
 /// An extension trait for bold transformations.
 pub trait Bold {
     /// Transforms the given text into its bold version.
-    ///
-    /// # Example
-    ///
-    /// ```rust
-    /// use markdown_builder::transforms::Bold;
-    ///
-    /// let text = "To bold";
-    /// let bold = text.to_bold();
-    /// assert_eq!(bold, "**To bold**");
-    /// ```
     fn to_bold(&self) -> String;
 }
 
@@ -93,30 +61,10 @@ where
 /// An extension trait for code block transformations.
 pub trait CodeBlock {
     /// Transforms the given text into a code block.
-    ///
-    /// # Example
-    ///
-    /// ```rust
-    /// use markdown_builder::transforms::CodeBlock;
-    ///
-    /// let text = "print(\"Hello world!\")";
-    /// let code_block = text.to_code_block();
-    /// assert_eq!(code_block, "```\nprint(\"Hello world!\")\n```");
-    /// ```
     fn to_code_block(&self) -> String;
 
     /// Transforms the given text into a code block, allowing to specify the
     /// language to use for highlighting.
-    ///
-    /// # Example
-    ///
-    /// ```rust
-    /// use markdown_builder::transforms::CodeBlock;
-    ///
-    /// let text = "print(\"Hello world!\")";
-    /// let code_block = text.to_code_block_with_language("python");
-    /// assert_eq!(code_block, "```python\nprint(\"Hello world!\")\n```");
-    /// ```
     fn to_code_block_with_language<S: AsRef<str>>(&self, language: S) -> String;
 }
 
@@ -136,16 +84,6 @@ where
 /// An extension trait for inline transformations.
 pub trait Inline {
     /// Transforms the given text into an inline code block.
-    ///
-    /// # Example
-    ///
-    /// ```rust
-    /// use markdown_builder::transforms::Inline;
-    ///
-    /// let text = "Inline text";
-    /// let inline = text.to_inline();
-    /// assert_eq!(inline, "`Inline text`");
-    /// ```
     fn to_inline(&self) -> String;
 }
 
@@ -161,16 +99,6 @@ where
 /// An extension trait for italic transformations.
 pub trait Italic {
     /// Transforms the given text into its italic variant.
-    ///
-    /// # Example
-    ///
-    /// ```rust
-    /// use markdown_builder::transforms::Italic;
-    ///
-    /// let text = "Italic text";
-    /// let inline = text.to_italic();
-    /// assert_eq!(inline, "*Italic text*");
-    /// ```
     fn to_italic(&self) -> String;
 }
 

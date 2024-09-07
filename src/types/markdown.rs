@@ -154,8 +154,14 @@ impl Markdown {
 
 impl fmt::Display for Markdown {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        for element in &self.elements {
-            writeln!(f, "{}", element.render())?;
+        for (index, element) in self.elements.iter().enumerate() {
+            println!("a {}", element.render());
+
+            if index == self.elements.len() - 1 {
+                write!(f, "{}", element.render())?;
+            } else {
+                writeln!(f, "{}", element.render())?;
+            }
         }
 
         for footer in &self.footers {
@@ -163,5 +169,29 @@ impl fmt::Display for Markdown {
         }
 
         Ok(())
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn document_with_one_paragraph() {
+        assert_eq!(
+            Markdown::new().paragraph("Hello World").render(),
+            "Hello World\n"
+        );
+    }
+
+    #[test]
+    fn document_with_two_paragraphs() {
+        assert_eq!(
+            Markdown::new()
+                .paragraph("Hello World")
+                .paragraph("Two paragraphs")
+                .render(),
+            "Hello World\n\nTwo paragraphs\n"
+        );
     }
 }

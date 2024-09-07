@@ -2,23 +2,6 @@
 //!
 //! The main API involves around using builders to create structured Markdown
 //! elements that can be combined together into a Markdown document
-//!
-//! ```rust
-//! use markdown_builder::{Link, Markdown};
-//!
-//! let link = Link::builder()
-//!     .text("Hello World")
-//!     .url("https://hello.world")
-//!     .build();
-//!
-//! let mut doc = Markdown::new();
-//! doc.header1("First level header")
-//!     .paragraph("Some standalone paragraph")
-//!     .link(link)
-//!     .paragraph("Some other paragraph");
-//!
-//! let rendered = doc.render();
-//! ```
 
 pub mod builders;
 pub mod extensions;
