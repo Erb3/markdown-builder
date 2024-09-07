@@ -3,7 +3,7 @@
 //! The main API involves around using builders to create structured Markdown
 //! elements that can be combined together into a Markdown document
 //!
-//! ```rust,norun
+//! ```rust
 //! use markdown_builder::{Link, Markdown};
 //!
 //! let link = Link::builder()
@@ -11,12 +11,13 @@
 //!     .url("https://hello.world")
 //!     .build();
 //!
-//! let md = Markdown::new()
-//!     .header1("First level header")
+//! let mut doc = Markdown::new();
+//! doc.header1("First level header")
 //!     .paragraph("Some standalone paragraph")
 //!     .link(link)
 //!     .paragraph("Some other paragraph");
-//! let rendered = md.render();
+//!
+//! let rendered = doc.render();
 //! ```
 
 pub mod builders;

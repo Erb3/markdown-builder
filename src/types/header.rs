@@ -28,7 +28,7 @@ impl HeaderLevel {
     /// Panics if the header level is not valid (one to six inclusive).
     pub fn from(level: impl ToUsize) -> Self {
         let level = level.to_usize();
-        assert!(1 <= level && level <= 6);
+        assert!((1..=6).contains(&level));
         Self(level)
     }
 }

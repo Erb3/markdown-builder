@@ -17,7 +17,7 @@ pub struct Markdown {
     pub footers: Vec<Box<dyn MarkdownElement>>,
 }
 
-impl<'a> Markdown {
+impl Markdown {
     /// Creates a new default `Markdown` instance.
     pub fn new() -> Self {
         Self::default()
