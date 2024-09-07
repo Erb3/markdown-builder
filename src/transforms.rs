@@ -1,7 +1,7 @@
 //! Contains extension traits that can used to transform text elements into
 //! special markdown formats.
 //!
-//! The module does add support for the following transformations:
+//! The module adds support for the following transformations:
 //! - [Block quotes](trait.BlockQuote.html)
 //! - [Bold](trait.Bold.html)
 //! - [Code blocks](trait.CodeBlock.html)

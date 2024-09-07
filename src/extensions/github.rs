@@ -45,7 +45,7 @@ pub trait Strikethrough {
     ///
     /// let text = "text";
     /// let striked = text.to_strikethrough();
-    /// assert_eq!(striked, "~text~");
+    /// assert_eq!(striked, "~~text~~");
     /// ```
     fn to_strikethrough(&self) -> String;
 }
@@ -55,6 +55,6 @@ where
     T: AsRef<str>,
 {
     fn to_strikethrough(&self) -> String {
-        format!("~{}~", self.as_ref())
+        format!("~~{}~~", self.as_ref())
     }
 }

@@ -75,31 +75,35 @@ mod tests {
     fn test_image_builder_url_and_footer() {
         let image = Image::builder()
             .url("https://example.com/picture.png")
+            .text("A cute picture of a sandcat")
             .footer()
             .build();
 
         assert_eq!(image.footer, true);
         assert_eq!(image.url, "https://example.com/picture.png");
+        assert_eq!(image.text, "A cute picture of a sandcat");
     }
 
     #[test]
     fn test_image_builder_url_and_set_footer() {
-        assert_eq!(
-            Image::builder()
-                .url("https://example.com/picture.png")
-                .set_footer(true)
-                .build()
-                .footer,
-            true
-        );
+        let footer = Image::builder()
+            .url("https://example.com/picture.png")
+            .text("A cute picture of a sandcat")
+            .set_footer(true)
+            .build();
 
-        assert_eq!(
-            Image::builder()
-                .url("https://example.com/picture.png")
-                .set_footer(false)
-                .build()
-                .footer,
-            false
-        );
+        assert_eq!(footer.footer, true);
+        assert_eq!(footer.url, "https://example.com/picture.png");
+        assert_eq!(footer.text, "A cute picture of a sandcat");
+
+        let no_footer = Image::builder()
+            .url("https://example.com/picture.png")
+            .text("A cute picture of a sandcat")
+            .set_footer(false)
+            .build();
+
+        assert_eq!(no_footer.footer, false);
+        assert_eq!(no_footer.url, "https://example.com/picture.png");
+        assert_eq!(no_footer.text, "A cute picture of a sandcat");
     }
 }
