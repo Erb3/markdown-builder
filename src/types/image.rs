@@ -1,11 +1,8 @@
 use crate::traits::{AsFooter, MarkdownElement};
-#[cfg(feature = "serde")]
-use serde::{Deserialize, Serialize};
 use std::fmt;
 
 /// A markdown image.
 #[derive(Clone, Debug, Default)]
-#[cfg_attr(feature = "serde", derive(Deserialize, Serialize))]
 pub struct Image {
     /// Whether the image's link should be added as a footer reference.
     pub footer: bool,

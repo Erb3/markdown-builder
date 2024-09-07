@@ -1,11 +1,8 @@
-#[cfg(feature = "serde")]
-use serde::{Deserialize, Serialize};
 use std::fmt;
 use tousize::ToUsize;
 
 /// The level of a header.
 #[derive(Clone, Debug, Eq, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Deserialize, Serialize))]
 pub struct HeaderLevel(usize);
 
 impl Default for HeaderLevel {
@@ -44,7 +41,6 @@ where
 
 /// A markdown header.
 #[derive(Clone, Debug, Default, Eq, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Deserialize, Serialize))]
 pub struct Header {
     /// The header text.
     pub text: String,

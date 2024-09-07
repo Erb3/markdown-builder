@@ -1,5 +1,3 @@
-#[cfg(feature = "serde")]
-use serde::{Deserialize, Serialize};
 use std::fmt;
 
 /// A markdown paragraph.
@@ -7,7 +5,6 @@ use std::fmt;
 /// A paragraph is a continuous text that is visually separated from its
 /// surrounding markdown elements.
 #[derive(Clone, Debug)]
-#[cfg_attr(feature = "serde", derive(Deserialize, Serialize))]
 pub struct Paragraph {
     /// The text inside the paragraph.
     pub text: String,

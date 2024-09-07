@@ -2,14 +2,11 @@ use crate::{
     traits::{AsFooter, MarkdownElement},
     types::{header::Header, link::Link, list::List, paragraph::Paragraph},
 };
-#[cfg(feature = "serde")]
-use serde::{Deserialize, Serialize};
 use std::fmt;
 use tousize::ToUsize;
 
 /// A markdown document.
 #[derive(Default)]
-// #[cfg_attr(feature = "serde", derive(Deserialize, Serialize))]
 pub struct Markdown {
     /// The markdown elements.
     pub elements: Vec<Box<dyn MarkdownElement>>,

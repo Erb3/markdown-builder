@@ -1,11 +1,8 @@
 use crate::traits::{AsFooter, MarkdownElement};
-#[cfg(feature = "serde")]
-use serde::{Deserialize, Serialize};
 use std::fmt;
 
 /// A markdown link.
 #[derive(Clone, Debug, Default)]
-#[cfg_attr(feature = "serde", derive(Deserialize, Serialize))]
 pub struct Link {
     /// The text of the link.
     pub text: String,

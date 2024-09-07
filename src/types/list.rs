@@ -1,11 +1,8 @@
 use crate::MarkdownElement;
-#[cfg(feature = "serde")]
-use serde::{Deserialize, Serialize};
 use std::{borrow::Cow, fmt};
 
 /// The type of list.
 #[derive(Clone, Debug, Eq, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Deserialize, Serialize))]
 pub enum ListType {
     /// An ordered list prefixes all its items using numbers.
     Ordered,
@@ -21,7 +18,6 @@ impl Default for ListType {
 
 /// The marker used to indicate the start of a `ListItem`.
 #[derive(Clone, Debug, Eq, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Deserialize, Serialize))]
 pub enum ListItemMarker {
     /// The `*` list item marker.
     Asterisk,
@@ -56,7 +52,6 @@ impl fmt::Display for ListItemMarker {
 
 /// The separator used to separate the list item number and the item content.
 #[derive(Clone, Debug, Eq, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Deserialize, Serialize))]
 pub enum NumberedListItemMarkerSeparator {
     /// The `.` separator.
     Dot,
