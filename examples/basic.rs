@@ -1,4 +1,4 @@
-use markdown_composer::{
+use markdown_builder::{
     builders::list::ListBuilder, extensions::github::CheckmarkItem, types::markdown::Markdown, Link,
 };
 

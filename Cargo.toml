@@ -1,5 +1,5 @@
 [package]
-name = "markdown-composer"
+name = "markdown-builder"
 description = "A library for building markdown documents"
 version = "0.0.0"
 license = "MIT"

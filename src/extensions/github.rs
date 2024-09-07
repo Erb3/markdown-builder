@@ -41,7 +41,7 @@ pub trait Strikethrough {
     /// # Example
     ///
     /// ```rust
-    /// use markdown_composer::extensions::github::Strikethrough;
+    /// use markdown_builder::extensions::github::Strikethrough;
     ///
     /// let text = "text";
     /// let striked = text.to_strikethrough();

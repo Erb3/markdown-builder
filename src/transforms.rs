@@ -15,7 +15,7 @@ pub trait BlockQuote {
     /// # Example
     ///
     /// ```rust
-    /// use markdown_composer::transforms::BlockQuote;
+    /// use markdown_builder::transforms::BlockQuote;
     ///
     /// let text = "To quote";
     /// let quoted = text.to_block_quote();
@@ -38,7 +38,7 @@ pub trait BlockQuote {
     /// # Example
     ///
     /// ```rust
-    /// use markdown_composer::transforms::BlockQuote;
+    /// use markdown_builder::transforms::BlockQuote;
     ///
     /// let text = "To quote\nor not to quote";
     /// let quoted = text.to_block_quote_multi_line();
@@ -72,7 +72,7 @@ pub trait Bold {
     /// # Example
     ///
     /// ```rust
-    /// use markdown_composer::transforms::Bold;
+    /// use markdown_builder::transforms::Bold;
     ///
     /// let text = "To bold";
     /// let bold = text.to_bold();
@@ -97,7 +97,7 @@ pub trait CodeBlock {
     /// # Example
     ///
     /// ```rust
-    /// use markdown_composer::transforms::CodeBlock;
+    /// use markdown_builder::transforms::CodeBlock;
     ///
     /// let text = "print(\"Hello world!\")";
     /// let code_block = text.to_code_block();
@@ -111,7 +111,7 @@ pub trait CodeBlock {
     /// # Example
     ///
     /// ```rust
-    /// use markdown_composer::transforms::CodeBlock;
+    /// use markdown_builder::transforms::CodeBlock;
     ///
     /// let text = "print(\"Hello world!\")";
     /// let code_block = text.to_code_block_with_language("python");
@@ -140,7 +140,7 @@ pub trait Inline {
     /// # Example
     ///
     /// ```rust
-    /// use markdown_composer::transforms::Inline;
+    /// use markdown_builder::transforms::Inline;
     ///
     /// let text = "Inline text";
     /// let inline = text.to_inline();
@@ -165,7 +165,7 @@ pub trait Italic {
     /// # Example
     ///
     /// ```rust
-    /// use markdown_composer::transforms::Italic;
+    /// use markdown_builder::transforms::Italic;
     ///
     /// let text = "Italic text";
     /// let inline = text.to_italic();

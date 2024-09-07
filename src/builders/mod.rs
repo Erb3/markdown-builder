@@ -4,7 +4,7 @@
 //! an imperative style:
 //!
 //! ```rust
-//! use markdown_composer::{Link, List, Markdown};
+//! use markdown_builder::{Link, List, Markdown};
 //!
 //! let rendered = Markdown::new()
 //!     .header1("Header 1")
