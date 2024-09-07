@@ -1,6 +1,7 @@
 use crate::{
     traits::{AsFooter, MarkdownElement},
     types::{header::Header, link::Link, list::List, paragraph::Paragraph},
+    Image,
 };
 use std::fmt;
 use tousize::ToUsize;
@@ -132,6 +133,24 @@ impl Markdown {
         self
     }
 
+    /// Adds an image to the document.
+    ///
+    /// ### Argument
+    ///
+    /// - `image`: The image instance to add.
+    ///
+    /// # Note
+    ///
+    /// The associated footer element is added as well if the passed link is
+    /// marked as footer.
+    pub fn image(&mut self, image: Image) -> &mut Self {
+        if image.footer {
+            self.footers.push(image.as_footer());
+        }
+        self.elements.push(Box::new(image));
+        self
+    }
+
     /// Adds a paragraph to the document.
     ///
     /// # Arguments
@@ -164,6 +183,10 @@ impl fmt::Display for Markdown {
             }
         }
 
+        if !self.footers.is_empty() {
+            writeln!(f, "")?;
+        }
+
         for footer in &self.footers {
             writeln!(f, "{}", footer.render())?;
         }
@@ -174,6 +197,8 @@ impl fmt::Display for Markdown {
 
 #[cfg(test)]
 mod tests {
+    use crate::ImageBuilder;
+
     use super::*;
 
     #[test]
@@ -193,5 +218,35 @@ mod tests {
                 .render(),
             "Hello World\n\nTwo paragraphs\n"
         );
+    }
+
+    #[test]
+    fn document_with_image() {
+        let mut doc = Markdown::new();
+        doc.image(
+            ImageBuilder::new()
+                .url("https://example.com/picture.png")
+                .text("A cute picture of a sandcat")
+                .build(),
+        );
+
+        assert_eq!(
+            doc.render(),
+            "![A cute picture of a sandcat](https://example.com/picture.png)\n"
+        );
+    }
+
+    #[test]
+    fn document_with_image_footer() {
+        let mut doc = Markdown::new();
+        doc.image(
+            ImageBuilder::new()
+                .url("https://example.com/picture.png")
+                .text("A cute picture of a sandcat")
+                .footer()
+                .build(),
+        );
+
+        assert_eq!(doc.render(), "![A cute picture of a sandcat][A cute picture of a sandcat]\n\n[A cute picture of a sandcat]: https://example.com/picture.png\n");
     }
 }
