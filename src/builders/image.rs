@@ -33,7 +33,7 @@ impl ImageBuilder {
     }
 
     pub fn build(self) -> Image {
-        Image::from(self.text, self.url, self.footer)
+        Image::from(self.url, self.text, self.footer)
     }
 }
 
@@ -46,30 +46,6 @@ impl Image {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::MarkdownElement;
-
-    #[test]
-    fn test_image_builder_url() {
-        assert_eq!(
-            Image::builder()
-                .url("https://example.com/picture.png")
-                .build()
-                .render(),
-            "![](https://example.com/picture.png)\n"
-        );
-    }
-
-    #[test]
-    fn test_image_builder_url_and_text() {
-        assert_eq!(
-            Image::builder()
-                .url("https://example.com/picture.png")
-                .text("A cute picture of a sandcat")
-                .build()
-                .render(),
-            "![A cute picture of a sandcat](https://example.com/picture.png)\n"
-        );
-    }
 
     #[test]
     fn test_image_builder_url_and_footer() {

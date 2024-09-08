@@ -20,8 +20,6 @@ impl HeaderLevel {
 
     /// Creates a new header level.
     ///
-    /// # Panics
-    ///
     /// Panics if the header level is not valid (one to six inclusive).
     pub fn from(level: impl ToUsize) -> Self {
         let level = level.to_usize();
@@ -56,9 +54,8 @@ impl Header {
 
     /// Creates a new header.
     ///
-    /// # Panics
-    ///
     /// Panics if the header level is not valid (one to six inclusive).
+    /// Lower level means more important header.
     pub fn from(text: impl Into<String>, level: impl Into<HeaderLevel>) -> Self {
         Self {
             text: text.into(),
@@ -76,25 +73,44 @@ impl fmt::Display for Header {
 #[cfg(test)]
 mod tests {
     use super::{Header, HeaderLevel};
+    use crate::MarkdownElement;
 
     #[test]
     fn test_header_level() {
-        let level = 5usize;
-        assert_eq!(HeaderLevel::from(5usize), level.into());
+        assert_eq!(HeaderLevel::from(5usize), 5usize.into());
     }
 
     #[test]
     #[should_panic]
-    fn test_header_level_panic() {
-        let _: HeaderLevel = 0usize.into();
+    fn test_header_level_panic_lowball() {
+        HeaderLevel::from(0usize);
     }
 
     #[test]
-    fn test_header() {
-        let content = "Some header content";
-        let level = 5usize;
-        let header = Header::from(content, level);
-        assert_eq!(header.text, content);
-        assert_eq!(header.level, level.into());
+    #[should_panic]
+    fn test_header_level_panic_highball() {
+        HeaderLevel::from(7usize);
+    }
+
+    #[test]
+    fn test_header_of_all_sizes() {
+        assert_eq!(Header::from("A header", 1usize).render(), "# A header\n");
+        assert_eq!(Header::from("A header", 2usize).render(), "## A header\n");
+        assert_eq!(Header::from("A header", 3usize).render(), "### A header\n");
+        assert_eq!(Header::from("A header", 4usize).render(), "#### A header\n");
+        assert_eq!(
+            Header::from("A header", 5usize).render(),
+            "##### A header\n"
+        );
+        assert_eq!(
+            Header::from("A header", 6usize).render(),
+            "###### A header\n"
+        );
+    }
+
+    #[test]
+    fn test_header_default() {
+        assert_eq!(Header::new().level, 1usize.into());
+        assert_eq!(Header::new().text, "");
     }
 }
