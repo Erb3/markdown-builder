@@ -1,5 +1,5 @@
 # markdown-builder
 
-> Opinionated Rust crate for composing markdown documents.
+> Opinionated Rust crate for building markdown documents.
 
-This project is based off work by [mainrs](https://github.com/mainrs) for the [markdown-composer](https://github.com/mainrs/markdown-composer-rs) crate.
+This project is based of the [markdown-composer](https://github.com/mainrs/markdown-composer-rs) crate by [mainrs](https://github.com/mainrs).

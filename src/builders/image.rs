@@ -48,7 +48,7 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_image_builder_url_and_footer() {
+    fn test_image_builder_url_footer() {
         let image = Image::builder()
             .url("https://example.com/picture.png")
             .text("A cute picture of a sandcat")
@@ -61,7 +61,7 @@ mod tests {
     }
 
     #[test]
-    fn test_image_builder_url_and_set_footer() {
+    fn test_image_builder_url_set_footer() {
         let footer = Image::builder()
             .url("https://example.com/picture.png")
             .text("A cute picture of a sandcat")

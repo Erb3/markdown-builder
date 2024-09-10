@@ -174,8 +174,6 @@ impl Markdown {
 impl fmt::Display for Markdown {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         for (index, element) in self.elements.iter().enumerate() {
-            println!("a {}", element.render());
-
             if index == self.elements.len() - 1 {
                 write!(f, "{}", element.render())?;
             } else {
@@ -197,9 +195,8 @@ impl fmt::Display for Markdown {
 
 #[cfg(test)]
 mod tests {
-    use crate::ImageBuilder;
-
     use super::*;
+    use crate::ImageBuilder;
 
     #[test]
     fn document_with_one_paragraph() {

@@ -77,7 +77,7 @@ mod tests {
     }
 
     #[test]
-    fn test_image_url_and_text() {
+    fn test_image_url_text() {
         assert_eq!(
             Image::from(
                 "https://example.com/picture.png",

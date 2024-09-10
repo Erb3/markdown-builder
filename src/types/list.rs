@@ -1,5 +1,6 @@
-use crate::MarkdownElement;
 use std::fmt;
+
+use crate::MarkdownElement;
 
 /// The type of list.
 #[derive(Clone, Debug, Eq, PartialEq)]
