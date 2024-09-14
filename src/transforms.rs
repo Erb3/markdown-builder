@@ -111,8 +111,25 @@ where
     }
 }
 
+/// An extension trait for strikethrough transformations.
+pub trait Strikethrough {
+    /// Transforms the given text to be strikethrough.
+    fn to_strikethrough(&self) -> String;
+}
+
+impl<T> Strikethrough for T
+where
+    T: AsRef<str>,
+{
+    fn to_strikethrough(&self) -> String {
+        format!("~~{}~~", self.as_ref())
+    }
+}
+
 #[cfg(test)]
 mod tests {
+    use crate::transforms::Strikethrough;
+
     use super::{BlockQuote, Bold, Inline, Italic};
 
     #[test]
@@ -158,5 +175,14 @@ mod tests {
 
         let text = String::from("text");
         assert_eq!(String::from("*text*"), text.to_italic());
+    }
+
+    #[test]
+    fn test_strikethrough() {
+        let text = "text";
+        assert_eq!("~~text~~", text.to_strikethrough());
+
+        let text = String::from("text");
+        assert_eq!(String::from("~~text~~"), text.to_strikethrough())
     }
 }

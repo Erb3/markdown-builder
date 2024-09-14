@@ -4,7 +4,6 @@
 //! elements that can be combined together into a Markdown document
 
 pub mod builders;
-pub mod extensions;
 pub mod traits;
 pub mod transforms;
 pub mod types;
@@ -12,7 +11,7 @@ pub mod types;
 pub use crate::{
     builders::{image::ImageBuilder, link::LinkBuilder, list::ListBuilder},
     traits::{AsFooter, MarkdownElement},
-    transforms::{BlockQuote, Bold, CodeBlock, Inline, Italic},
+    transforms::{BlockQuote, Bold, CodeBlock, Inline, Italic, Strikethrough},
     types::{
         header::{Header, HeaderLevel},
         image::Image,
@@ -22,6 +21,3 @@ pub use crate::{
         paragraph::Paragraph,
     },
 };
-
-#[cfg(feature = "extension-github")]
-pub use crate::extensions::github::{CheckmarkItem, Strikethrough};
