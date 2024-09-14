@@ -11,3 +11,4 @@ This project was forked due to a multitude of reasons:
 - Unmaintained
 - Not wanting the additional settings to make it work for everyone
 - Fun
+- Word wrapping
