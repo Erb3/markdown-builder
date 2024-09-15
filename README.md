@@ -4,6 +4,10 @@
 
 This project is based of the [markdown-composer](https://github.com/mainrs/markdown-composer-rs) crate by [mainrs](https://github.com/mainrs).
 
+```shell
+cargo add markdown-builder
+```
+
 ## Features
 
 - Headers
