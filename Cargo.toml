@@ -1,7 +1,7 @@
 [package]
 name = "markdown-builder"
 description = "Opinionated Rust crate for programmatically building markdown documents"
-version = "0.0.0"
+version = "1.0.0"
 license = "MIT"
 readme = "README.md"
 repository = "https://github.com/Erb3/markdown-builder"
