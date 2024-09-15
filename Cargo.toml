@@ -1,12 +1,16 @@
 [package]
 name = "markdown-builder"
-description = "A library for building markdown documents"
+description = "Opinionated Rust crate for programmatically building markdown documents"
 version = "0.0.0"
 license = "MIT"
 readme = "README.md"
 repository = "https://github.com/Erb3/markdown-builder"
+homepage = "https://github.com/Erb3/markdown-builder"
+documentation = "https://github.com/Erb3/markdown-builder"
 authors = ["Erb3 <49862976+Erb3@users.noreply.github.com>"]
 edition = "2021"
+keywords = ["markdown", "builder", "documentation"]
+categories = ["template-engine", "data-structures", "encoding"]
 
 [dependencies]
 dyn-clonable = "0.9.0"
