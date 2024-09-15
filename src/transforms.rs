@@ -128,9 +128,8 @@ where
 
 #[cfg(test)]
 mod tests {
-    use crate::transforms::Strikethrough;
-
     use super::{BlockQuote, Bold, Inline, Italic};
+    use crate::transforms::Strikethrough;
 
     #[test]
     fn test_block_quote_single_line() {
@@ -150,11 +149,9 @@ mod tests {
 
     #[test]
     fn test_bold() {
-        // &str
         let text = "text";
         assert_eq!("**text**", text.to_bold());
 
-        // String
         let text = String::from("text");
         assert_eq!(String::from("**text**"), text.to_bold());
     }

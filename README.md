@@ -1,10 +1,32 @@
 # markdown-builder
 
-> Opinionated Rust crate for building markdown documents.
+> Opinionated Rust crate for programmatically building markdown documents.
 
 This project is based of the [markdown-composer](https://github.com/mainrs/markdown-composer-rs) crate by [mainrs](https://github.com/mainrs).
 
-## Why?
+## Features
+
+- Headers
+- Paragraphs
+  - Word wrapping
+- Images
+  - Footer
+  - Alt text
+- Links
+  - Footer
+- Lists
+  - Ordered
+  - Unordered
+  - Checkmarks
+- Transformations
+  - Italic
+  - Bold
+  - Strikethrough
+  - Codeblocks
+  - Inline code
+  - Blockquote
+
+## Why fork?
 
 This project was forked due to a multitude of reasons:
 
