@@ -56,7 +56,7 @@ impl List {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::{MarkdownElement, Paragraph};
+    use crate::{ListType, MarkdownElement, Paragraph};
 
     #[test]
     fn test_ordered_paragraphs() {
@@ -65,6 +65,9 @@ mod tests {
             .append(Paragraph::from("John doe"))
             .ordered();
 
+        assert_eq!(list.typ, ListType::Ordered);
+        // We cannot just compare the vector since because the paragraph hasn't been rendered
+        assert_eq!(list.items.len(), 2);
         assert_eq!(list.render(), "1. Hello World\n2. John doe\n");
     }
 
@@ -75,6 +78,8 @@ mod tests {
             .append("John doe")
             .unordered();
 
+        assert_eq!(list.typ, ListType::Unordered);
+        assert_eq!(list.items.len(), 2);
         assert_eq!(list.render(), "- Hello World\n- John doe\n");
     }
 
@@ -86,6 +91,8 @@ mod tests {
             .checkmark("Eat kebab", true)
             .unordered();
 
+        assert_eq!(list.typ, ListType::Unordered);
+        assert_eq!(list.items.len(), 3);
         assert_eq!(
             list.render(),
             "- [x] Eat spaghetti\n- [ ] Eat pizza\n- [x] Eat kebab\n"

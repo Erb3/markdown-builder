@@ -36,8 +36,9 @@ cargo add markdown-builder
 > The builders will often panic when you try to do stupid things.
 > If you create the structs directly, it will not panic, resulting in invalid markdown.
 
-To fully get the gripe of markdown-builder, a good starting point is the unit tests.
-Here however, is a simple example.
+To fully get the gripe of markdown-builder, a good starting point is the
+[documentation](https://docs.rs/markdown-builder/latest/markdown_builder/) or
+unit tests. Here however, is a simple example.
 
 ```rust
 let mut doc = Markdown::new();

@@ -3,3 +3,6 @@
 
 # Ignore backup files.
 *.rs.bk
+
+# Code coverage things
+*.profraw
