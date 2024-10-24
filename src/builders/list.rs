@@ -6,6 +6,7 @@ use crate::types::{
 #[derive(Clone, Debug, Default)]
 pub struct ListBuilder {
     items: Vec<ListItem>,
+    has_checkmarks: bool,
 }
 
 impl ListBuilder {
@@ -18,17 +19,30 @@ impl ListBuilder {
         self
     }
 
-    /// Adds a checkmark using checkmark::CheckmarkItem.
+    /// Adds a checkmark using [checkmark::CheckmarkItem].
     pub fn checkmark(mut self, item: impl Into<String>, checked: bool) -> Self {
         self.items.push(CheckmarkItem::from(item, checked).into());
+        self.has_checkmarks = true;
         self
     }
 
     pub fn ordered(self) -> List {
+        if self.items.is_empty() {
+            panic!("Attempt to bulid list without contents");
+        }
+
+        if self.has_checkmarks {
+            panic!("Attempt to build ordered list with checkboxes")
+        }
+
         List::ordered_with(self.items)
     }
 
     pub fn unordered(self) -> List {
+        if self.items.is_empty() {
+            panic!("Attempt to bulid list without contents");
+        }
+
         List::unordered_with(self.items)
     }
 }
@@ -76,5 +90,26 @@ mod tests {
             list.render(),
             "- [x] Eat spaghetti\n- [ ] Eat pizza\n- [x] Eat kebab\n"
         );
+    }
+
+    #[test]
+    #[should_panic]
+    fn test_list_builder_unordered_no_elements_panic() {
+        List::builder().unordered();
+    }
+
+    #[test]
+    #[should_panic]
+    fn test_list_builder_ordered_no_elements_panic() {
+        List::builder().ordered();
+    }
+
+    #[test]
+    #[should_panic]
+    fn test_list_builder_ordered_checkmark_panic() {
+        List::builder()
+            .checkmark("Hello world", false)
+            .checkmark("Checked", true)
+            .ordered();
     }
 }

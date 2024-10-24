@@ -1,8 +1,8 @@
-# markdown-builder
+# Markdown Builder
 
-> Opinionated Rust crate for programmatically building markdown documents.
-
-This project is based of the [markdown-composer](https://github.com/mainrs/markdown-composer-rs) crate by [mainrs](https://github.com/mainrs).
+**markdown-builder** is an opinionated Rust crate for programmatically building
+markdown documents. This project is based of the [markdown-composer] crate by
+[mainrs].
 
 ```shell
 cargo add markdown-builder
@@ -63,3 +63,6 @@ This project was forked out of markdown-composer due to a multitude of reasons:
 - Markdown-composer looked unmaintained
 - Not wanting the additional settings to make it work for everyone
 - Word wrapping
+
+[markdown-composer]: https://github.com/mainrs/markdown-composer-rs
+[mainrs]: https://github.com/mainrs
