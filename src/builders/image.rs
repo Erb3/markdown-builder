@@ -2,8 +2,8 @@ use crate::types::image::Image;
 
 #[derive(Clone, Debug, Default, Eq, PartialEq)]
 pub struct ImageBuilder {
-    text: String,
-    url: String,
+    text: Option<String>,
+    url: Option<String>,
     footer: bool,
 }
 
@@ -23,17 +23,29 @@ impl ImageBuilder {
     }
 
     pub fn text(mut self, text: impl Into<String>) -> Self {
-        self.text = text.into();
+        self.text = Some(text.into());
         self
     }
 
     pub fn url(mut self, url: impl Into<String>) -> Self {
-        self.url = url.into();
+        self.url = Some(url.into());
         self
     }
 
     pub fn build(self) -> Image {
-        Image::from(self.url, self.text, self.footer)
+        if self.url.is_none() {
+            panic!("Attempt to create image without source URL")
+        }
+
+        if self.footer && self.text.is_none() {
+            panic!("Attempt to create image with URL in footer without image alt-text");
+        }
+
+        Image::from(
+            self.url.unwrap(),
+            self.text.unwrap_or("".into()),
+            self.footer,
+        )
     }
 }
 
@@ -81,5 +93,20 @@ mod tests {
         assert_eq!(no_footer.footer, false);
         assert_eq!(no_footer.url, "https://example.com/picture.png");
         assert_eq!(no_footer.text, "A cute picture of a sandcat");
+    }
+
+    #[test]
+    #[should_panic]
+    fn test_image_builder_no_url_panic() {
+        Image::builder().text("Hello world").build();
+    }
+
+    #[test]
+    #[should_panic]
+    fn test_image_builder_footer_no_alt_text_panic() {
+        Image::builder()
+            .url("https://example.com/picture.png")
+            .footer()
+            .build();
     }
 }

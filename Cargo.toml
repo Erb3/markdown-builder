@@ -9,7 +9,7 @@ homepage = "https://github.com/Erb3/markdown-builder"
 documentation = "https://github.com/Erb3/markdown-builder"
 authors = ["Erb3 <49862976+Erb3@users.noreply.github.com>"]
 edition = "2021"
-keywords = ["markdown", "builder", "documentation"]
+keywords = ["markdown", "builder", "writer", "generator"]
 categories = ["template-engine"]
 
 [dependencies]
