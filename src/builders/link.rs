@@ -2,8 +2,8 @@ use crate::types::link::Link;
 
 #[derive(Clone, Debug, Default, Eq, PartialEq)]
 pub struct LinkBuilder {
-    text: String,
-    url: String,
+    text: Option<String>,
+    url: Option<String>,
     footer: bool,
     inlined: bool,
 }
@@ -14,12 +14,12 @@ impl LinkBuilder {
     }
 
     pub fn text(mut self, text: impl Into<String>) -> Self {
-        self.text = text.into();
+        self.text = Some(text.into());
         self
     }
 
     pub fn url(mut self, url: impl Into<String>) -> Self {
-        self.url = url.into();
+        self.url = Some(url.into());
         self
     }
 
@@ -44,7 +44,20 @@ impl LinkBuilder {
     }
 
     pub fn build(self) -> Link {
-        Link::from(self.url, self.text, self.footer, self.inlined)
+        if self.url.is_none() {
+            panic!("Attempt to build link without target URL")
+        }
+
+        if self.text.is_none() {
+            panic!("Attempt to build link without text")
+        }
+
+        Link::from(
+            self.url.unwrap(),
+            self.text.unwrap(),
+            self.footer,
+            self.inlined,
+        )
     }
 }
 
@@ -59,7 +72,7 @@ mod tests {
     use super::*;
 
     #[test]
-    fn text_link_builder_text_url() {
+    fn test_link_builder_text_url() {
         let link = Link::builder()
             .url("https://www.rust-lang.org/")
             .text("A cool website")
@@ -72,7 +85,7 @@ mod tests {
     }
 
     #[test]
-    fn text_link_builder_text_url_footer() {
+    fn test_link_builder_text_url_footer() {
         let link = Link::builder()
             .url("https://www.rust-lang.org/")
             .text("A cool website")
@@ -86,7 +99,7 @@ mod tests {
     }
 
     #[test]
-    fn text_link_builder_text_url_set_footer() {
+    fn test_link_builder_text_url_set_footer() {
         let link = Link::builder()
             .url("https://www.rust-lang.org/")
             .text("A cool website")
@@ -111,7 +124,7 @@ mod tests {
     }
 
     #[test]
-    fn text_link_builder_text_url_inlined() {
+    fn test_link_builder_text_url_inlined() {
         let link = Link::builder()
             .url("https://www.rust-lang.org/")
             .text("A cool website")
@@ -125,7 +138,7 @@ mod tests {
     }
 
     #[test]
-    fn text_link_builder_text_url_set_inlined() {
+    fn test_link_builder_text_url_set_inlined() {
         let link_inlined = Link::builder()
             .url("https://www.rust-lang.org/")
             .text("A cool website")
@@ -149,5 +162,17 @@ mod tests {
         assert_eq!(link.text, "A cool website");
         assert_eq!(link.footer, false);
         assert_eq!(link.inlined, false);
+    }
+
+    #[test]
+    #[should_panic]
+    fn test_link_builder_no_url_panic() {
+        Link::builder().url("https://www.rust-lang.org/").build();
+    }
+
+    #[test]
+    #[should_panic]
+    fn test_link_builder_no_text_panic() {
+        Link::builder().text("A cool website").build();
     }
 }

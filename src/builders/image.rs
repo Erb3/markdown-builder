@@ -34,11 +34,11 @@ impl ImageBuilder {
 
     pub fn build(self) -> Image {
         if self.url.is_none() {
-            panic!("Attempt to create image without source URL")
+            panic!("Attempt to build image without source URL")
         }
 
         if self.footer && self.text.is_none() {
-            panic!("Attempt to create image with URL in footer without image alt-text");
+            panic!("Attempt to bulid image with URL in footer without image alt-text");
         }
 
         Image::from(
