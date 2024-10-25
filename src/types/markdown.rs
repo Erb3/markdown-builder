@@ -202,7 +202,7 @@ impl fmt::Display for Markdown {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::ImageBuilder;
+    use crate::{ImageBuilder, LinkBuilder, ListBuilder};
 
     #[test]
     fn test_empty_document_using_default() {
@@ -216,6 +216,36 @@ mod tests {
         let doc = Markdown::new();
         assert_eq!(doc.elements.len(), 0);
         assert_eq!(doc.footers.len(), 0);
+    }
+
+    #[test]
+    fn test_create_document_with_empty_vecs() {
+        assert_eq!(Markdown::with(vec![], vec![]).render(), "");
+    }
+
+    #[test]
+    fn test_create_document_with_paragraph() {
+        assert_eq!(
+            Markdown::with(vec![Box::new(Paragraph::from("Hello World"))], vec![]).render(),
+            "Hello World\n"
+        );
+    }
+
+    #[test]
+    fn test_create_document_with_paragraph_and_footer() {
+        assert_eq!(
+            Markdown::with(
+                vec![Box::new(Paragraph::from("Hello World"))],
+                vec![Box::new("[test]: https://example.com")]
+            )
+            .render(),
+            "Hello World\n\n[test]: https://example.com\n"
+        );
+    }
+
+    #[test]
+    fn test_empty_document_render() {
+        assert_eq!(Markdown::new().render(), "");
     }
 
     #[test]
@@ -234,6 +264,75 @@ mod tests {
                 .paragraph("Two paragraphs")
                 .render(),
             "Hello World\n\nTwo paragraphs\n"
+        );
+    }
+
+    #[test]
+    fn test_document_with_header_shorthands() {
+        assert_eq!(
+            Markdown::new()
+                .h1("My document")
+                .paragraph("I like pizza.")
+                .h2("Heading 2")
+                .h3("Heading 3")
+                .h4("Heading 4")
+                .h5("Heading 5")
+                .h6("Heading 6")
+                .render(),
+            "# My document\n\nI like pizza.\n\n## Heading 2\n\n### Heading 3\n\n#### Heading 4\n\n##### Heading 5\n\n###### Heading 6\n"
+        )
+    }
+
+    #[test]
+    fn test_document_with_header() {
+        assert_eq!(
+            Markdown::new()
+                .header("My document", 1u16)
+                .paragraph("I like pizza.")
+                .header("Heading 2", 2usize)
+                .header("Heading 6", 6usize)
+                .render(),
+            "# My document\n\nI like pizza.\n\n## Heading 2\n\n###### Heading 6\n"
+        )
+    }
+
+    #[test]
+    #[should_panic]
+    fn test_document_header_upper_range_panic() {
+        Markdown::new().header("Invalid header", 7usize);
+    }
+
+    #[test]
+    #[should_panic]
+    fn test_document_header_bottom_range_panic() {
+        Markdown::new().header("Invalid header", 0usize);
+    }
+
+    #[test]
+    fn test_document_header_shorthand_matches_generic() {
+        assert_eq!(
+            Markdown::new().header("Header", 1usize).render(),
+            Markdown::new().h1("Header").render()
+        );
+        assert_eq!(
+            Markdown::new().header("Header", 2usize).render(),
+            Markdown::new().h2("Header").render()
+        );
+        assert_eq!(
+            Markdown::new().header("Header", 3usize).render(),
+            Markdown::new().h3("Header").render()
+        );
+        assert_eq!(
+            Markdown::new().header("Header", 4usize).render(),
+            Markdown::new().h4("Header").render()
+        );
+        assert_eq!(
+            Markdown::new().header("Header", 5usize).render(),
+            Markdown::new().h5("Header").render()
+        );
+        assert_eq!(
+            Markdown::new().header("Header", 6usize).render(),
+            Markdown::new().h6("Header").render()
         );
     }
 
@@ -265,5 +364,57 @@ mod tests {
         );
 
         assert_eq!(doc.render(), "![A cute picture of a sandcat][A cute picture of a sandcat]\n\n[A cute picture of a sandcat]: https://example.com/picture.png\n");
+    }
+
+    #[test]
+    fn test_document_with_link() {
+        let mut doc = Markdown::new();
+        doc.link(
+            LinkBuilder::new()
+                .url("https://example.com/picture.png")
+                .text("A cute picture of a sandcat")
+                .build(),
+        );
+
+        assert_eq!(
+            doc.render(),
+            "[A cute picture of a sandcat](https://example.com/picture.png)\n"
+        );
+    }
+
+    #[test]
+    fn test_document_with_link_footer() {
+        let mut doc = Markdown::new();
+        doc.link(
+            LinkBuilder::new()
+                .url("https://example.com/picture.png")
+                .text("A cute picture of a sandcat")
+                .footer()
+                .build(),
+        );
+
+        assert_eq!(doc.render(), "[A cute picture of a sandcat][A cute picture of a sandcat]\n\n[A cute picture of a sandcat]: https://example.com/picture.png\n");
+    }
+
+    #[test]
+    fn test_document_with_list() {
+        let mut doc = Markdown::new();
+
+        doc.list(
+            ListBuilder::new()
+                .append("First do this")
+                .append("Then do this")
+                .ordered(),
+        );
+
+        assert_eq!(doc.render(), "1. First do this\n2. Then do this\n")
+    }
+
+    #[test]
+    fn test_document_add() {
+        assert_eq!(
+            Markdown::new().add(Paragraph::from("Hello world")).render(),
+            "Hello world\n"
+        );
     }
 }
