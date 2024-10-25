@@ -1,5 +1,5 @@
 use crate::types::{
-    checkmark::CheckmarkItem,
+    checkmark::Checkmark,
     list::{List, ListItem},
 };
 
@@ -19,9 +19,9 @@ impl ListBuilder {
         self
     }
 
-    /// Adds a checkmark using [checkmark::CheckmarkItem].
+    /// Adds a checkmark using [checkmark::Checkmark].
     pub fn checkmark(mut self, item: impl Into<String>, checked: bool) -> Self {
-        self.items.push(CheckmarkItem::from(item, checked).into());
+        self.items.push(Checkmark::from(item, checked).into());
         self.has_checkmarks = true;
         self
     }
