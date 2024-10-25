@@ -34,7 +34,7 @@ cargo add markdown-builder
 
 > [!NOTE]
 > The builders will often panic when you try to do stupid things.
-> If you create the structs directly, it will not panic, resulting in invalid markdown.
+> If you create the structs directly, it will not panic, resulting in potentially invalid markdown.
 
 To fully get the gripe of markdown-builder, a good starting point is the
 [documentation](https://docs.rs/markdown-builder/latest/markdown_builder/) or

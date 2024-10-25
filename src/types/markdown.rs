@@ -29,6 +29,12 @@ impl Markdown {
         Self { elements, footers }
     }
 
+    /// Adds any generic markdown element.
+    pub fn add(&mut self, element: impl MarkdownElement + 'static) -> &mut Self {
+        self.elements.push(Box::new(element));
+        self
+    }
+
     /// Adds a header to the document.
     ///
     /// # Arguments
@@ -50,7 +56,7 @@ impl Markdown {
     /// # Arguments
     ///
     /// - `text`: The header's text.
-    pub fn header1(&mut self, text: impl Into<String>) -> &mut Self {
+    pub fn h1(&mut self, text: impl Into<String>) -> &mut Self {
         self.header(text, 1usize);
         self
     }
@@ -60,7 +66,7 @@ impl Markdown {
     /// # Arguments
     ///
     /// - `text`: The header's text.
-    pub fn header2(&mut self, text: impl Into<String>) -> &mut Self {
+    pub fn h2(&mut self, text: impl Into<String>) -> &mut Self {
         self.header(text, 2usize);
         self
     }
@@ -70,7 +76,7 @@ impl Markdown {
     /// # Arguments
     ///
     /// - `text`: The header's text.
-    pub fn header3(&mut self, text: impl Into<String>) -> &mut Self {
+    pub fn h3(&mut self, text: impl Into<String>) -> &mut Self {
         self.header(text, 3usize);
         self
     }
@@ -80,7 +86,7 @@ impl Markdown {
     /// # Arguments
     ///
     /// - `text`: The header's text.
-    pub fn header4(&mut self, text: impl Into<String>) -> &mut Self {
+    pub fn h4(&mut self, text: impl Into<String>) -> &mut Self {
         self.header(text, 4usize);
         self
     }
@@ -90,7 +96,7 @@ impl Markdown {
     /// # Arguments
     ///
     /// - `text`: The header's text.
-    pub fn header5(&mut self, text: impl Into<String>) -> &mut Self {
+    pub fn h5(&mut self, text: impl Into<String>) -> &mut Self {
         self.header(text, 5usize);
         self
     }
@@ -100,7 +106,7 @@ impl Markdown {
     /// # Arguments
     ///
     /// - `text`: The header's text.
-    pub fn header6(&mut self, text: impl Into<String>) -> &mut Self {
+    pub fn h6(&mut self, text: impl Into<String>) -> &mut Self {
         self.header(text, 6usize);
         self
     }
