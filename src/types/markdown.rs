@@ -188,7 +188,7 @@ impl fmt::Display for Markdown {
         }
 
         if !self.footers.is_empty() {
-            writeln!(f, "")?;
+            writeln!(f)?;
         }
 
         for footer in &self.footers {
@@ -203,6 +203,20 @@ impl fmt::Display for Markdown {
 mod tests {
     use super::*;
     use crate::ImageBuilder;
+
+    #[test]
+    fn test_empty_document_using_default() {
+        let doc = Markdown::default();
+        assert_eq!(doc.elements.len(), 0);
+        assert_eq!(doc.footers.len(), 0);
+    }
+
+    #[test]
+    fn test_empty_document_using_new() {
+        let doc = Markdown::new();
+        assert_eq!(doc.elements.len(), 0);
+        assert_eq!(doc.footers.len(), 0);
+    }
 
     #[test]
     fn document_with_one_paragraph() {

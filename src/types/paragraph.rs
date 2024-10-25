@@ -36,7 +36,7 @@ impl fmt::Display for Paragraph {
             }
         }
 
-        write!(f, "\n")?;
+        writeln!(f)?;
 
         Ok(())
     }

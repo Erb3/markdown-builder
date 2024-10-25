@@ -66,7 +66,6 @@ impl List {
         Self {
             items,
             typ: ListType::Unordered,
-            ..Default::default()
         }
     }
 }
@@ -76,7 +75,7 @@ impl fmt::Display for List {
         for (idx, item) in self.items.iter().enumerate() {
             let marker = match self.typ {
                 ListType::Ordered => format!("{}.", idx + 1),
-                ListType::Unordered => format!("-"),
+                ListType::Unordered => "-".into(),
             };
             writeln!(f, "{} {}", marker, item.render().trim_end_matches("\n"))?;
         }
