@@ -32,7 +32,7 @@ impl ListBuilder {
         }
 
         if self.has_checkmarks {
-            panic!("Attempt to build ordered list with checkboxes")
+            panic!("Attempt to build ordered list with checkmarks")
         }
 
         List::ordered_with(self.items)
