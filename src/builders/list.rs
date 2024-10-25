@@ -49,7 +49,7 @@ impl ListBuilder {
 
 impl List {
     pub fn builder() -> ListBuilder {
-        ListBuilder::new()
+        Default::default()
     }
 }
 

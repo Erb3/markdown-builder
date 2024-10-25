@@ -77,7 +77,11 @@ where
     }
 
     fn to_code_block_with_language<S: AsRef<str>>(&self, language: S) -> String {
-        format!("```{}\n{}\n```", language.as_ref(), self.as_ref())
+        format!(
+            "```{}\n{}\n```",
+            language.as_ref().to_lowercase(),
+            self.as_ref()
+        )
     }
 }
 
@@ -129,7 +133,7 @@ where
 #[cfg(test)]
 mod tests {
     use super::{BlockQuote, Bold, Inline, Italic};
-    use crate::transforms::Strikethrough;
+    use crate::{transforms::Strikethrough, CodeBlock};
 
     #[test]
     fn test_block_quote_single_line() {
@@ -151,35 +155,38 @@ mod tests {
     fn test_bold() {
         let text = "text";
         assert_eq!("**text**", text.to_bold());
-
-        let text = String::from("text");
-        assert_eq!(String::from("**text**"), text.to_bold());
     }
 
     #[test]
     fn test_inline() {
         let text = "text";
         assert_eq!("`text`", text.to_inline());
-
-        let text = String::from("text");
-        assert_eq!(String::from("`text`"), text.to_inline());
     }
 
     #[test]
     fn test_italic() {
         let text = "text";
         assert_eq!("*text*", text.to_italic());
-
-        let text = String::from("text");
-        assert_eq!(String::from("*text*"), text.to_italic());
     }
 
     #[test]
     fn test_strikethrough() {
         let text = "text";
         assert_eq!("~~text~~", text.to_strikethrough());
+    }
 
-        let text = String::from("text");
-        assert_eq!(String::from("~~text~~"), text.to_strikethrough())
+    #[test]
+    fn test_code_block() {
+        let text = "println!(\"Hello world\")";
+        assert_eq!("```\nprintln!(\"Hello world\")\n```", text.to_code_block());
+    }
+
+    #[test]
+    fn test_code_block_with_language() {
+        let text = "println!(\"Hello world\")";
+        assert_eq!(
+            "```rust\nprintln!(\"Hello world\")\n```",
+            text.to_code_block_with_language("Rust")
+        );
     }
 }

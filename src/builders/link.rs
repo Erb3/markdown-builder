@@ -63,7 +63,7 @@ impl LinkBuilder {
 
 impl Link {
     pub fn builder() -> LinkBuilder {
-        LinkBuilder::new()
+        Default::default()
     }
 }
 

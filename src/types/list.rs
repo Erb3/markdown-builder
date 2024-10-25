@@ -47,10 +47,7 @@ impl List {
 
     /// Creates a new empty unordered `List`.
     pub fn unordered() -> Self {
-        Self {
-            variant: ListVariant::Unordered,
-            ..Default::default()
-        }
+        Default::default()
     }
 
     /// Creates a new ordered `List` with the given items.

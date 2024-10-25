@@ -6,3 +6,5 @@
 
 # Code coverage things
 *.profraw
+mutants.out
+mutants.out*

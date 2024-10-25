@@ -51,7 +51,7 @@ impl ImageBuilder {
 
 impl Image {
     pub fn builder() -> ImageBuilder {
-        ImageBuilder::new()
+        Default::default()
     }
 }
 
