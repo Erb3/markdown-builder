@@ -3,14 +3,14 @@ use std::fmt;
 
 /// The type of list.
 #[derive(Clone, Debug, Eq, PartialEq)]
-pub enum ListType {
+pub enum ListVariant {
     /// An ordered list prefixes all its items using incrementing numbers.
     Ordered,
     /// An unordered list prefixes all its items using a dash.
     Unordered,
 }
 
-impl Default for ListType {
+impl Default for ListVariant {
     fn default() -> Self {
         Self::Unordered
     }
@@ -26,7 +26,7 @@ pub type ListItem = Box<dyn MarkdownElement>;
 #[derive(Clone, Debug, Default)]
 pub struct List {
     pub items: Vec<ListItem>,
-    pub typ: ListType,
+    pub variant: ListVariant,
 }
 
 impl List {
@@ -40,7 +40,7 @@ impl List {
     /// Creates a new empty ordered `List`.
     pub fn ordered() -> Self {
         Self {
-            typ: ListType::Ordered,
+            variant: ListVariant::Ordered,
             ..Default::default()
         }
     }
@@ -48,7 +48,7 @@ impl List {
     /// Creates a new empty unordered `List`.
     pub fn unordered() -> Self {
         Self {
-            typ: ListType::Unordered,
+            variant: ListVariant::Unordered,
             ..Default::default()
         }
     }
@@ -57,7 +57,7 @@ impl List {
     pub fn ordered_with(items: Vec<ListItem>) -> Self {
         Self {
             items,
-            typ: ListType::Ordered,
+            variant: ListVariant::Ordered,
         }
     }
 
@@ -65,7 +65,7 @@ impl List {
     pub fn unordered_with(items: Vec<ListItem>) -> Self {
         Self {
             items,
-            typ: ListType::Unordered,
+            variant: ListVariant::Unordered,
         }
     }
 }
@@ -73,9 +73,9 @@ impl List {
 impl fmt::Display for List {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         for (idx, item) in self.items.iter().enumerate() {
-            let marker = match self.typ {
-                ListType::Ordered => format!("{}.", idx + 1),
-                ListType::Unordered => "-".into(),
+            let marker = match self.variant {
+                ListVariant::Ordered => format!("{}.", idx + 1),
+                ListVariant::Unordered => "-".into(),
             };
             writeln!(f, "{} {}", marker, item.render().trim_end_matches("\n"))?;
         }
@@ -134,21 +134,21 @@ mod tests {
     #[test]
     fn test_default_list() {
         let list = List::new();
-        assert_eq!(list.typ, ListType::Unordered);
+        assert_eq!(list.variant, ListVariant::Unordered);
         assert_eq!(list.items.len(), 0);
     }
 
     #[test]
     fn test_empty_unordered_list() {
         let list = List::unordered();
-        assert_eq!(list.typ, ListType::Unordered);
+        assert_eq!(list.variant, ListVariant::Unordered);
         assert_eq!(list.items.len(), 0);
     }
 
     #[test]
     fn test_empty_ordered_list() {
         let list = List::ordered();
-        assert_eq!(list.typ, ListType::Ordered);
+        assert_eq!(list.variant, ListVariant::Ordered);
         assert_eq!(list.items.len(), 0);
     }
 }

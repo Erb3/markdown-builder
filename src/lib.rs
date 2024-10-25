@@ -16,7 +16,7 @@ pub use crate::{
         header::{Header, HeaderLevel},
         image::Image,
         link::Link,
-        list::{List, ListItem, ListType},
+        list::{List, ListItem, ListVariant},
         markdown::Markdown,
         paragraph::Paragraph,
     },
