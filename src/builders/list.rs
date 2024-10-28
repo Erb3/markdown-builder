@@ -1,12 +1,12 @@
 use crate::types::{
-    checkmark::Checkmark,
+    checkbox::Checkbox,
     list::{List, ListItem},
 };
 
 #[derive(Clone, Debug, Default)]
 pub struct ListBuilder {
     items: Vec<ListItem>,
-    has_checkmarks: bool,
+    has_checkboxes: bool,
 }
 
 impl ListBuilder {
@@ -19,10 +19,10 @@ impl ListBuilder {
         self
     }
 
-    /// Adds a checkmark using [checkmark::Checkmark].
-    pub fn checkmark(mut self, item: impl Into<String>, checked: bool) -> Self {
-        self.items.push(Checkmark::from(item, checked).into());
-        self.has_checkmarks = true;
+    /// Adds a checkbox using [checkbox::Checkbox].
+    pub fn checkbox(mut self, item: impl Into<String>, checked: bool) -> Self {
+        self.items.push(Checkbox::from(item, checked).into());
+        self.has_checkboxes = true;
         self
     }
 
@@ -31,8 +31,8 @@ impl ListBuilder {
             panic!("Attempt to bulid list without contents");
         }
 
-        if self.has_checkmarks {
-            panic!("Attempt to build ordered list with checkmarks")
+        if self.has_checkboxes {
+            panic!("Attempt to build ordered list with checkboxes")
         }
 
         List::ordered_with(self.items)
@@ -84,11 +84,11 @@ mod tests {
     }
 
     #[test]
-    fn test_unordered_checkmarks() {
+    fn test_unordered_checkboxes() {
         let list = List::builder()
-            .checkmark("Eat spaghetti", true)
-            .checkmark("Eat pizza", false)
-            .checkmark("Eat kebab", true)
+            .checkbox("Eat spaghetti", true)
+            .checkbox("Eat pizza", false)
+            .checkbox("Eat kebab", true)
             .unordered();
 
         assert_eq!(list.variant, ListVariant::Unordered);
@@ -113,10 +113,10 @@ mod tests {
 
     #[test]
     #[should_panic]
-    fn test_list_builder_ordered_checkmark_panic() {
+    fn test_list_builder_ordered_checkbox_panic() {
         List::builder()
-            .checkmark("Hello world", false)
-            .checkmark("Checked", true)
+            .checkbox("Hello world", false)
+            .checkbox("Checked", true)
             .ordered();
     }
 }

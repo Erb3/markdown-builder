@@ -21,7 +21,7 @@ cargo add markdown-builder
 - Lists
   - Ordered
   - Unordered
-  - Checkmarks
+  - Checkboxes
 - Transformations
   - Italic
   - Bold
