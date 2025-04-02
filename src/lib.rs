@@ -3,11 +3,12 @@
 //! The main API involves around using builders to create structured Markdown
 //! elements that can be combined together into a Markdown document
 
+#![forbid(unsafe_code)]
+
 pub mod builders;
 pub mod traits;
 pub mod transforms;
 pub mod types;
-
 pub use crate::{
     builders::{image::ImageBuilder, link::LinkBuilder, list::ListBuilder},
     traits::{AsFooter, MarkdownElement},
