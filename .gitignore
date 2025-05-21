@@ -1,5 +1,5 @@
 # Ignore compilation units.
-/target
+target
 
 # Ignore backup files.
 *.rs.bk
